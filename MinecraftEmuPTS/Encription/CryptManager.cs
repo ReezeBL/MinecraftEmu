@@ -18,121 +18,91 @@ using Org.BouncyCastle.Crypto.Paddings;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities.Encoders;
+using Org.BouncyCastle.Math;
+using Org.BouncyCastle.Crypto.IO;
 
 
 namespace MinecraftEmuPTS.Encription
 {
     class CryptManager
     {
-        
-        static public void StopServer()
+        static private byte[] PublicKey;
+        static private byte[] SecretKey;
+
+        static public void DecodePublicKey(byte[] data)
         {
-            TcpClient Client = new TcpClient();
-            Client.Connect(IPAddress.Parse("127.0.0.1"), 3128);
-            NetworkStream tcpStream = Client.GetStream();
-            byte command = 0;
-            
-            tcpStream.WriteByte(command);
-
-            Client.Close();
+            PublicKey = data;
         }
-        static public PublicKey DecodePublicKey(byte[] data){
-            /*TcpClient Client = new TcpClient();
-            Client.Connect(IPAddress.Parse("127.0.0.1"), 3128);
-            NetworkStream tcpStream = Client.GetStream();
-            byte command = 1;
-
-            
-
-            tcpStream.WriteByte(command);
-            tcpStream.Write(data, 0, data.Length);
-            tcpStream.Close();
-            Client.Close();*/
-            PublicKey key;
-            key.g
-            var asymmetricKeyParameter = PublicKeyFactory.CreateKey(data);
-            var rsaKeyParameters = (RsaKeyParameters)asymmetricKeyParameter;
-            var cipher = CipherUtilities.GetCipher("RSA");
-            cipher.Init(true, rsaKeyParameters);
-            //cipher.g
-
-        }
-        static public PublicKey GetSharedKey(byte[] SendToken)
+        static byte[] CreateSecretKey()
         {
-            /*TcpClient Client = new TcpClient();
-            Client.Connect(IPAddress.Parse("127.0.0.1"), 3128);
-            NetworkStream tcpStream = Client.GetStream();
-            byte command = 2;
-
-           X509
-
-            tcpStream.WriteByte(command);
-            tcpStream.Write(SendToken, 0, SendToken.Length);
-            int L;
-            L = tcpStream.ReadByte();
-            byte[] Secret = new byte[L];            
-            tcpStream.Read(Secret, 0, Secret.Length);
-            L = tcpStream.ReadByte();
-            byte[] Token = new byte[L];
-            tcpStream.Read(Token, 0, Token.Length);
-
-            Client.Close();
-
-            return new Packets.PacketSharedKey(Secret, Token);*/
-            return null;
+            CipherKeyGenerator keygen = new CipherKeyGenerator();
+            keygen.Init(new KeyGenerationParameters(new SecureRandom(), 16));
+            SecretKey = keygen.GenerateKey();
+            return SecretKey;
         }
 
-        static public byte[] GetServerIdHash(String ServerId)
+        public static byte[] EncryptWithPublicKey(byte[] data)
         {
-            TcpClient Client = new TcpClient();
-            Client.Connect(IPAddress.Parse("127.0.0.1"), 3128);
-            NetworkStream tcpStream = Client.GetStream();
-            byte command = 3;
-
-            tcpStream.WriteByte(command);
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(ServerId);
-            byte L = (byte)data.Length;
-            tcpStream.WriteByte(L);
-            tcpStream.Write(data, 0, L);
-            L = (byte)tcpStream.ReadByte();
-            data = new byte[L];
-            tcpStream.Read(data, 0, L);
-
-            Client.Close();
-
-            return data;
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            RSAParameters RSAKeyInfo = new RSAParameters();
+            byte[] Exponent = {1,0,1};
+            RSAKeyInfo.Modulus = PublicKey;
+            RSAKeyInfo.Exponent = Exponent;
+            rsa.ImportParameters(RSAKeyInfo);
+            return rsa.Encrypt(data, false);
         }
 
-        public static byte[] EncryptPacket(Packet packet)
+        static public String GetServerIdHash(String ServerId)
         {
-            TcpClient Client = new TcpClient();
-            Client.Connect(IPAddress.Parse("127.0.0.1"), 3128);
-            NetworkStream tcpStream = Client.GetStream();
-            byte command = 4;
-
-            tcpStream.WriteByte(command);
-            tcpStream.WriteByte((byte)packet.GetPacketSize());
-            tcpStream.Write(packet.RawData, 0, packet.GetPacketSize());
-
-            byte[] data = new byte[packet.GetPacketSize()];
-            tcpStream.Read(data, 0, data.Length);
-
-            return data;
+            return JavaHexDigest(ServerId);
         }
 
-        public static Packet DecryptPacket(byte[] data, int length)
+        public static Stream encryptStream(Stream stream)
         {
-            TcpClient Client = new TcpClient();
-            Client.Connect(IPAddress.Parse("127.0.0.1"), 3128);
-            NetworkStream tcpStream = Client.GetStream();
-            byte command = 5;
-
-            tcpStream.WriteByte(command);
-            tcpStream.WriteByte((byte)length);
-            tcpStream.Write(data, 0, length);
-
-            return null;
+            BufferedBlockCipher output = new BufferedBlockCipher(new CfbBlockCipher(new AesFastEngine(), 8));
+            output.Init(true, new ParametersWithIV(new KeyParameter(SecretKey), SecretKey, 0, 16));
+            BufferedBlockCipher input = new BufferedBlockCipher(new CfbBlockCipher(new AesFastEngine(), 8));
+            input.Init(false, new ParametersWithIV(new KeyParameter(SecretKey), SecretKey, 0, 16));
+            return new CipherStream(stream, output, input);
         }
-       
+
+
+        private static string JavaHexDigest(string data)
+        {
+            var sha1 = SHA1.Create();
+            byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(data));
+            bool negative = (hash[0] & 0x80) == 0x80;
+            if (negative) // check for negative hashes
+                hash = TwosCompliment(hash);
+            // Create the string and trim away the zeroes
+            string digest = GetHexString(hash).TrimStart('0');
+            if (negative)
+                digest = "-" + digest;
+            return digest;
+        }
+
+        private static string GetHexString(byte[] p)
+        {
+            string result = string.Empty;
+            for (int i = 0; i < p.Length; i++)
+                result += p[i].ToString("x2"); // Converts to hex string
+            return result;
+        }
+        private static byte[] TwosCompliment(byte[] p) // little endian
+        {
+            int i;
+            bool carry = true;
+            for (i = p.Length - 1; i >= 0; i--)
+            {
+                p[i] = (byte)~p[i];
+                if (carry)
+                {
+                    carry = p[i] == 0xFF;
+                    p[i]++;
+                }
+            }
+            return p;
+        }
     }
+
 }

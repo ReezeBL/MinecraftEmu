@@ -8,3 +8,9 @@ C:\Users\Reeze\Documents\Visual Studio 2010\Projects\informatica_spbgu\homework\
 C:\Users\Reeze\Documents\Visual Studio 2010\Projects\informatica_spbgu\homework\laba\MinecraftEmuPTS\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.csprojResolveAssemblyReference.cache
 C:\Users\Reeze\Documents\GitHub\MinecraftEmuPTS\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.exe
 C:\Users\Reeze\Documents\GitHub\MinecraftEmuPTS\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.pdb
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.exe
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.pdb
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.csprojResolveAssemblyReference.cache
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.Form1.resources
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.Properties.Resources.resources
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.csproj.GenerateResource.Cache
