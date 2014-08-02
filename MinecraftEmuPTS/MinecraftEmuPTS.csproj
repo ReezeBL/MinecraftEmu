@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BCE73C1F-F8B4-49E2-BB05-A202A308F9F5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MinecraftEmuPTS</RootNamespace>
+    <AssemblyName>MinecraftEmuPTS</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>.\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameInfo\EntityPlayer.cs" />
+    <Compile Include="NetHandler\ConnectionManager.cs" />
+    <Compile Include="Encription\CryptManager.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NetHandler\LoginHandler.cs" />
+    <Compile Include="NetHandler\NetHandler.cs" />
+    <Compile Include="Packets\PacketSetPlayerTeam.cs" />
+    <Compile Include="Packets\PacketWorldParticles.cs" />
+    <Compile Include="Packets\PacketBlockDestroy.cs" />
+    <Compile Include="Packets\PacketAutoComplete.cs" />
+    <Compile Include="Packets\PacketClientInfo.cs" />
+    <Compile Include="Packets\PacketEnchantItem.cs" />
+    <Compile Include="Packets\PacketEntityHeadRotation.cs" />
+    <Compile Include="Packets\PacketLevelSound.cs" />
+    <Compile Include="Packets\PacketPlayerAbilities.cs" />
+    <Compile Include="Packets\PacketSetDisplayObjective.cs" />
+    <Compile Include="Packets\PacketSetObjective.cs" />
+    <Compile Include="Packets\PacketSetScore.cs" />
+    <Compile Include="Packets\PacketTileEntityData.cs" />
+    <Compile Include="Packets\PacketCreativeSetSlot.cs" />
+    <Compile Include="Packets\PacketEntityExpOrb.cs" />
+    <Compile Include="Packets\PacketExperience.cs" />
+    <Compile Include="Packets\PacketRemoveEntityEffect.cs" />
+    <Compile Include="Packets\PacketEntityEffect.cs" />
+    <Compile Include="Packets\PacketServerPing.cs" />
+    <Compile Include="Packets\PacketDoorChange.cs" />
+    <Compile Include="Packets\PacketMapData.cs" />
+    <Compile Include="Packets\PacketWeather.cs" />
+    <Compile Include="Packets\PacketGameEvent.cs" />
+    <Compile Include="Packets\PacketPlayerInput.cs" />
+    <Compile Include="Packets\PacketSleep.cs" />
+    <Compile Include="Packets\PacketStatistic.cs" />
+    <Compile Include="Packets\Packet.cs" />
+    <Compile Include="Packets\PacketAnimation.cs" />
+    <Compile Include="Packets\PacketAttachEntity.cs" />
+    <Compile Include="Packets\PacketBlockChange.cs" />
+    <Compile Include="Packets\PacketBlockDig.cs" />
+    <Compile Include="Packets\PacketBlockItemSwitch.cs" />
+    <Compile Include="Packets\PacketChat.cs" />
+    <Compile Include="Packets\PacketChunkData.cs" />
+    <Compile Include="Packets\PacketCloseWindow.cs" />
+    <Compile Include="Packets\PacketCollect.cs" />
+    <Compile Include="Packets\PacketCustomPayload.cs" />
+    <Compile Include="Packets\PacketDestroyEntity.cs" />
+    <Compile Include="Packets\PacketDisconnect.cs" />
+    <Compile Include="Packets\PacketEntity.cs" />
+    <Compile Include="Packets\PacketEntityAction.cs" />
+    <Compile Include="Packets\PacketEntityMetadata.cs" />
+    <Compile Include="Packets\PacketEntityPainting.cs" />
+    <Compile Include="Packets\PacketEntityStatus.cs" />
+    <Compile Include="Packets\PacketEntityTeleport.cs" />
+    <Compile Include="Packets\PacketEntityVelocity.cs" />
+    <Compile Include="Packets\PacketExplosion.cs" />
+    <Compile Include="Packets\PacketFlying.cs" />
+    <Compile Include="Packets\PacketHandshake.cs" />
+    <Compile Include="Packets\PacketKeepAlive.cs" />
+    <Compile Include="Packets\PacketLogin.cs" />
+    <Compile Include="Packets\PacketMobSpawn.cs" />
+    <Compile Include="Packets\PacketMultiBlockChange.cs" />
+    <Compile Include="Packets\PacketNamedEntitySpawn.cs" />
+    <Compile Include="Packets\PacketOpenWindow.cs" />
+    <Compile Include="Packets\PacketPlace.cs" />
+    <Compile Include="Packets\PacketPlayerInfo.cs" />
+    <Compile Include="Packets\PacketPlayerInventory.cs" />
+    <Compile Include="Packets\PacketPlayNoteBlock.cs" />
+    <Compile Include="Packets\PacketRespawn.cs" />
+    <Compile Include="Packets\PacketServerAuthData.cs" />
+    <Compile Include="Packets\PacketClientCommand.cs" />
+    <Compile Include="Packets\PacketSetSlot.cs" />
+    <Compile Include="Packets\PacketSharedKey.cs" />
+    <Compile Include="Packets\PacketSpawnPosition.cs" />
+    <Compile Include="Packets\PacketTransaction.cs" />
+    <Compile Include="Packets\PacketUpdateHealth.cs" />
+    <Compile Include="Packets\PacketUpdateProgressbar.cs" />
+    <Compile Include="Packets\PacketUpdateSign.cs" />
+    <Compile Include="Packets\PacketUpdateTime.cs" />
+    <Compile Include="Packets\PacketUseEntity.cs" />
+    <Compile Include="Packets\PacketVehicleSpawn.cs" />
+    <Compile Include="Packets\PacketWindowClick.cs" />
+    <Compile Include="Packets\PacketWindowItems.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Win32.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
