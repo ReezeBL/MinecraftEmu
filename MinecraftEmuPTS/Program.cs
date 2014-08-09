@@ -11,11 +11,23 @@ namespace MinecraftEmuPTS
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(String[] argv)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            if (argv.Length > 0)
+            {
+                if (argv[0] == "-console")
+                    Win32.AllocConsole();
+            }
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainWindow());
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog(ex);
+            }
         }
     }
 }

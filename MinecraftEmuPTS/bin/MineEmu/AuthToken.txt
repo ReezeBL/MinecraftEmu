@@ -1,0 +1,2 @@
+Вместо этого ссыль авторизации для вашего клиента в примерно таком в=формате:
+http://ex-server.ru/joinserver.php?user=*****&sessionId=*******&serverId=

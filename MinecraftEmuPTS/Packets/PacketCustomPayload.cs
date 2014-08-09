@@ -18,12 +18,13 @@ namespace MinecraftEmuPTS.Packets
         /** Any data */
         public byte[] data;
 
-        public PacketCustomPayload() {  
-        
+        public PacketCustomPayload() {
+            this.PacketID = 250;
         }
 
         public PacketCustomPayload(String par1Str, byte[] par2ArrayOfByte)
-        {            
+        {
+            this.PacketID = 250;
             this.channel = par1Str;
             this.data = par2ArrayOfByte;
 

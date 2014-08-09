@@ -20,41 +20,61 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities.Encoders;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Crypto.IO;
+using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.Asn1.Pkcs;
+using Org.BouncyCastle.Asn1;
 
 
 namespace MinecraftEmuPTS.Encription
 {
     class CryptManager
     {
+        static RsaKeyParameters Key;
         static private byte[] PublicKey;
         static private byte[] SecretKey;
 
         static public void DecodePublicKey(byte[] data)
         {
-            PublicKey = data;
-        }
-        static byte[] CreateSecretKey()
-        {
+
+            /*TcpClient Client = new TcpClient();
+            Client.Connect(IPAddress.Parse("127.0.0.1"), 3128);
+            BinaryWriter bwr = new BinaryWriter(Client.GetStream());
+            bwr.Write((byte)1);
+            bwr.Write(data, 0, 162);*/
+
+            AsymmetricKeyParameter kp = PublicKeyFactory.CreateKey(data);
+            Key = (RsaKeyParameters)kp;
+            PublicKey = new byte[data.Length];
+            data.CopyTo(PublicKey,0);
+            
+            //Console.WriteLine("Exponent: " + Key.Exponent + "\nModulus: " + Key.Modulus);
+
             CipherKeyGenerator keygen = new CipherKeyGenerator();
-            keygen.Init(new KeyGenerationParameters(new SecureRandom(), 16));
+            keygen.Init(new KeyGenerationParameters(new SecureRandom(), 128));
             SecretKey = keygen.GenerateKey();
+        }
+        static public byte[] CreateSecretKey()
+        {         
             return SecretKey;
         }
 
-        public static byte[] EncryptWithPublicKey(byte[] data)
+        public static byte[] EncryptData(byte[] data)
         {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            RSAParameters RSAKeyInfo = new RSAParameters();
-            byte[] Exponent = {1,0,1};
-            RSAKeyInfo.Modulus = PublicKey;
-            RSAKeyInfo.Exponent = Exponent;
-            rsa.ImportParameters(RSAKeyInfo);
-            return rsa.Encrypt(data, false);
+            IBufferedCipher cipher = CipherUtilities.GetCipher("RSA/ECB/PKCS1Padding");
+            cipher.Init(true, Key);
+            return cipher.DoFinal(data);
         }
 
         static public String GetServerIdHash(String ServerId)
         {
-            return JavaHexDigest(ServerId);
+            byte[] IdBytes = System.Text.Encoding.ASCII.GetBytes(ServerId);
+            byte[] data = new byte[IdBytes.Length + SecretKey.Length + PublicKey.Length];
+
+            IdBytes.CopyTo(data, 0);
+            SecretKey.CopyTo(data, IdBytes.Length);
+            PublicKey.CopyTo(data, IdBytes.Length + SecretKey.Length);
+
+            return JavaHexDigest(data);
         }
 
         public static Stream encryptStream(Stream stream)
@@ -63,14 +83,14 @@ namespace MinecraftEmuPTS.Encription
             output.Init(true, new ParametersWithIV(new KeyParameter(SecretKey), SecretKey, 0, 16));
             BufferedBlockCipher input = new BufferedBlockCipher(new CfbBlockCipher(new AesFastEngine(), 8));
             input.Init(false, new ParametersWithIV(new KeyParameter(SecretKey), SecretKey, 0, 16));
-            return new CipherStream(stream, output, input);
+            return new CipherStream(stream, input, output);
         }
 
 
-        private static string JavaHexDigest(string data)
+        private static string JavaHexDigest(byte[] data)
         {
             var sha1 = SHA1.Create();
-            byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(data));
+            byte[] hash = sha1.ComputeHash(data);
             bool negative = (hash[0] & 0x80) == 0x80;
             if (negative) // check for negative hashes
                 hash = TwosCompliment(hash);

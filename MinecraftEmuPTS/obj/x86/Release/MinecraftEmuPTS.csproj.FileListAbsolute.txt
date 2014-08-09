@@ -1,0 +1,10 @@
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\bin\Release\MinecraftEmuPTS.exe
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\bin\Release\MinecraftEmuPTS.pdb
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\bin\Release\BouncyCastle.Crypto.dll
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\bin\Release\Newtonsoft.Json.dll
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Release\MinecraftEmuPTS.csprojResolveAssemblyReference.cache
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Release\MinecraftEmuPTS.MainWindow.resources
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Release\MinecraftEmuPTS.Properties.Resources.resources
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Release\MinecraftEmuPTS.csproj.GenerateResource.Cache
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Release\MinecraftEmuPTS.exe
+C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Release\MinecraftEmuPTS.pdb
