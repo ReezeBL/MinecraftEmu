@@ -15,5 +15,9 @@ namespace MinecraftEmuPTS.Packets
             this.yPosition = DataInput.ReadByte();
             this.zPosition = DataInput.ReadByte();
         }
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketRelEntityMove(this);
+        }
     }
 }

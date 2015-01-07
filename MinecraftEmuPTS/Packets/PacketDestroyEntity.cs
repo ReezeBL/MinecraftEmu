@@ -18,5 +18,10 @@ namespace MinecraftEmuPTS.Packets
                 this.entityId[i] = IPAddress.NetworkToHostOrder(DataInput.ReadInt32());
             }
         }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketDestroyEntity(this);
+        }
     }
 }

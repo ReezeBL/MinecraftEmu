@@ -12,14 +12,6 @@ namespace MinecraftEmuPTS.Packets
         public int DataLength;
         public static byte[] ChunkData = new byte[0];
 
-
-        public PacketChunkData(Packet packet)
-        {
-            this.PacketID = 51;
-            this.RawData = packet.RawData;
-            this.Read();
-        }
-
         public PacketChunkData()
         {
             this.PacketID = 56;

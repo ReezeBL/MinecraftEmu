@@ -30,5 +30,10 @@ namespace MinecraftEmuPTS.Packets
         {
             DataOutput.Write((IPAddress.HostToNetworkOrder((Int16)this.id)));
         }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketBlockItemSwitch(this);
+        }
     }
 }

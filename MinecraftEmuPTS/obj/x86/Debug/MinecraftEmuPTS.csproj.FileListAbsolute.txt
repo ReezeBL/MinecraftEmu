@@ -17,3 +17,14 @@ C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\bin\Debug\Minecraft
 C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.MainWindow.resources
 C:\Users\Reeze\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.exe
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.pdb
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\bin\Debug\MinecraftEmuPTS.exe
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\bin\Debug\MinecraftEmuPTS.pdb
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.MainWindow.resources
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.Properties.Resources.resources
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.csproj.GenerateResource.Cache
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\bin\Debug\MinecraftEmuPTS.exe.config
+C:\Users\Шилкин\Desktop\MY PROJECTS! DO NOT ENTER\MinecraftEmu-master\MinecraftEmuPTS\obj\x86\Debug\MinecraftEmuPTS.csprojResolveAssemblyReference.cache

@@ -13,14 +13,7 @@ namespace MinecraftEmuPTS.Packets
         private String username;
         private String serverHost;
         private int serverPort;
-
-        public PacketHandshake(Packet packet)
-        {
-            this.PacketID = 2;
-            this.RawData = packet.RawData;
-            this.Read();
-        }
-
+      
         public PacketHandshake() {
             this.PacketID = 2;
         }

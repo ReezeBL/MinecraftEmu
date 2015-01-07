@@ -14,14 +14,7 @@ namespace MinecraftEmuPTS.Packets
     {
         private String serverId;
         private byte[] publicKey;
-        private byte[] verifyToken = new byte[0];
-
-        public PacketServerAuthData(Packet packet)
-        {
-            this.PacketID = 253;
-            this.RawData = packet.RawData;
-            this.Read();
-        }
+        private byte[] verifyToken = new byte[0];  
 
         public PacketServerAuthData() {
             this.PacketID = 253;
@@ -59,6 +52,11 @@ namespace MinecraftEmuPTS.Packets
         public byte[] GetVerifyToken()
         {
             return this.verifyToken;
+        }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketServerAuthData(this);
         }
     }
 }

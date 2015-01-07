@@ -1,1 +1,1 @@
-http://ex-server.ru/joinserver.php?user=NoliMultiply&sessionId=5ad45986ea887821090034185877b336&serverId=
+http://ex-server.ru/joinserver.php?user=NoliMultiply&sessionId=fdf08ca87de2505c4c251f6f96612f67&serverId=

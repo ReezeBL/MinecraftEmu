@@ -29,5 +29,10 @@ namespace MinecraftEmuPTS.Packets
         {
             writeString(this.message, DataOutput);
         }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketChat(this);
+        }
     }
 }

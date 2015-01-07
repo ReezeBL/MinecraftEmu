@@ -51,5 +51,10 @@ namespace MinecraftEmuPTS.Packets
             DataOutput.Write(IPAddress.HostToNetworkOrder((BitConverter.ToInt32(BitConverter.GetBytes(this.pitch), 0))));        
             DataOutput.Write(this.onGround); 
         }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketPlayerLookMove(this);
+        }
     }
 }

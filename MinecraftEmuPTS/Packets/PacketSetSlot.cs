@@ -27,5 +27,10 @@ namespace MinecraftEmuPTS.Packets
             this.itemSlot = IPAddress.NetworkToHostOrder(DataInput.ReadInt16());
             this.myItemStack = readItemStack(DataInput);
         }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketSetSlot(this);
+        }
     }
 }

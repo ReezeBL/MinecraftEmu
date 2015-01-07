@@ -19,13 +19,6 @@ namespace MinecraftEmuPTS.Packets
         public byte maxPlayers;
         private bool vanillaCompatible;
 
-        public PacketLogin(Packet packet)
-        {
-            this.PacketID = 1;
-            this.RawData = packet.RawData;
-            this.Read();
-        }
-
         public PacketLogin(bool vanilka)
         {
             this.PacketID = 1;

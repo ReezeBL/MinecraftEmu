@@ -55,6 +55,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BotSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>BotSettings.settings</DependentUpon>
+    </Compile>
     <Compile Include="GameInfo\EntityPlayer.cs" />
     <Compile Include="GameInfo\ItemStack.cs" />
     <Compile Include="GameInfo\ModList.cs" />
@@ -67,12 +72,11 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="NetHandler\CustomLib.cs" />
     <Compile Include="NetHandler\ReadThread.cs" />
     <Compile Include="NetHandler\UpdateThread.cs" />
-    <Compile Include="NetHandler\WriteThread.cs" />
     <Compile Include="Packets\PacketEntityLook.cs" />
-    <Compile Include="NetHandler\LoginHandler.cs" />
-    <Compile Include="NetHandler\NetHandler.cs" />
+    <Compile Include="NetHandler\PacketHandler.cs" />
     <Compile Include="Packets\PacketMapChunk.cs" />
     <Compile Include="Packets\PacketPlayerLook.cs" />
     <Compile Include="Packets\PacketPlayerLookMove.cs" />
@@ -154,6 +158,7 @@
     <Compile Include="Packets\PacketVehicleSpawn.cs" />
     <Compile Include="Packets\PacketWindowClick.cs" />
     <Compile Include="Packets\PacketWindowItems.cs" />
+    <Compile Include="PlayerControl.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Win32.cs" />
@@ -169,6 +174,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="app.config" />
+    <None Include="BotSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>BotSettings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

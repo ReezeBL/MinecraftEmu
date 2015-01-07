@@ -10,14 +10,7 @@ namespace MinecraftEmuPTS.Packets
     {
         private byte[] sharedSecret = new byte[0];
         private byte[] verifyToken = new byte[0];
-
-        public PacketSharedKey(Packet packet)
-        {
-            this.PacketID = 252;
-            this.RawData = packet.RawData;
-            this.Read();
-        }
-
+      
         public PacketSharedKey()
         {
             this.PacketID = 252;

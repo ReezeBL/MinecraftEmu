@@ -16,13 +16,6 @@ namespace MinecraftEmuPTS.Packets
         public bool isConnected;
         public int ping;
 
-        public PacketPlayerInfo(Packet packet)
-        {
-            this.PacketID = 201;
-            this.RawData = packet.RawData;
-            this.Read();
-        }
-
         public PacketPlayerInfo() {
             this.PacketID = 201;
         }

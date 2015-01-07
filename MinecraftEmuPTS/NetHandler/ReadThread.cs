@@ -11,17 +11,16 @@ namespace MinecraftEmuPTS.NetHandler
     class ReadThread
     {
         ConnectionManager manager;
-        Int32 lastID;
+        public static Int32 lastID;
         public ReadThread(ConnectionManager manager)
         {
             this.manager = manager;
             Run();
-        }
-
+        }       
         private void Run()
         {
-            while (true)
-            {
+            while (manager.Connected)
+            {     
                 try
                 {
                     Packet packet = manager.GetDividedPacket();
@@ -33,12 +32,17 @@ namespace MinecraftEmuPTS.NetHandler
                 }
                 catch (IOException ex)
                 {
-                    Logger.WriteLog(ex);
                     Console.WriteLine("Thread is stopping...\n Last packet id: " + lastID);
-                    Thread.CurrentThread.Abort();
+                    break;
                 }
-                Thread.Sleep(2);
+                catch (Exception ex)
+                {
+                    Logger.WriteLog(ex);
+                    break;
+                }
+                //Thread.Sleep(latency);
             }
+            manager.Connected = false;
         }
     }
 }

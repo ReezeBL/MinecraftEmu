@@ -8,15 +8,7 @@ namespace MinecraftEmuPTS.Packets
 {
     class PacketDisconnect : Packet
     {
-        private String reason;
-
-        public PacketDisconnect(Packet packet)
-        {
-            this.PacketID = 255;
-            this.RawData = packet.RawData;
-            this.Read();
-        }
-
+        private String reason;      
 
         public PacketDisconnect()
         {
@@ -42,6 +34,11 @@ namespace MinecraftEmuPTS.Packets
         public String getReason()
         {
             return this.reason;
+        }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketDisconnect(this);
         }
     }
 }

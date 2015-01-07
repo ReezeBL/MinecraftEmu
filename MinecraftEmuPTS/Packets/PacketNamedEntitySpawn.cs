@@ -46,5 +46,10 @@ namespace MinecraftEmuPTS.Packets
             this.currentItem = IPAddress.NetworkToHostOrder(DataInput.ReadInt16());
             readWatchableObjects(DataInput);
         }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketNamedEntitySpawn(this);
+        }
     }
 }

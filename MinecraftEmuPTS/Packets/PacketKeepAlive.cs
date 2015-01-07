@@ -28,5 +28,10 @@ namespace MinecraftEmuPTS.Packets
             DataOutput.Write(this.randomId);
         }
 
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketKeepAlive(this);
+        }
+
     }
 }

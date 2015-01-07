@@ -21,5 +21,10 @@ namespace MinecraftEmuPTS.Packets
             this.food = IPAddress.NetworkToHostOrder(DataInput.ReadInt16());
             this.foodSaturation = BitConverter.ToSingle(BitConverter.GetBytes(IPAddress.NetworkToHostOrder(DataInput.ReadInt32())), 0);
         }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketUpdateHealth(this);
+        } 
     }
 }

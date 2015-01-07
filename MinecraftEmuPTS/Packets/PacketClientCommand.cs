@@ -8,14 +8,7 @@ namespace MinecraftEmuPTS.Packets
 {
     class PacketClientCommand : Packet
     {
-        public int forceRespawn;
-
-        public PacketClientCommand(Packet packet)
-        {
-            this.PacketID = 205;
-            this.RawData = packet.RawData;
-            this.Read();
-        }
+        public int forceRespawn;       
 
         public PacketClientCommand() {
             this.PacketID = 205;

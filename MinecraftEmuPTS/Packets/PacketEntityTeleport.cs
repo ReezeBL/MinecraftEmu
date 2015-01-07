@@ -40,5 +40,10 @@ namespace MinecraftEmuPTS.Packets
             this.yaw = DataInput.ReadByte();
             this.pitch = DataInput.ReadByte();
         }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketEntityTeleport(this);
+        }
     }
 }

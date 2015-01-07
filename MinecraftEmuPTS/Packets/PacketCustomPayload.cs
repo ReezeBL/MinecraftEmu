@@ -61,5 +61,10 @@ namespace MinecraftEmuPTS.Packets
                 DataOutput.Write(this.data);
             }
         }
+
+        public override void processPacket(NetHandler.PacketHandler handle)
+        {
+            handle.HandlePacketCustomPayload(this);
+        }
     }
 }
