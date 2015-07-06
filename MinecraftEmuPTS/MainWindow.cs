@@ -16,6 +16,7 @@ namespace MinecraftEmuPTS
     {
         public String host;
         public String port;
+        public String username;
         public bool FMLserver;
     }
 
@@ -27,20 +28,13 @@ namespace MinecraftEmuPTS
     }
 
     partial class MainWindow : Form
-    {
-        IPAddress ServerIP = IPAddress.Parse("144.76.9.205");
-        int ServerPort = 24444;
-        int ProtocolVersion = 78;
-
-        public static String username = "NoliMultiply";
-        public static volatile Queue<ConsoleLine> ConsoleStack = new Queue<ConsoleLine>();
-        public static bool AutoFeed = false;
+    {             
         private static bool Reconnect = false;
 
         private delegate void ConsoleWriteFormated_(ConsoleLine line);
         private delegate void TimerCallback_(Object obj);
 
-        public ConnectionManager cManager = new ConnectionManager();
+        public ConnectionManager cManager;
         public TimeSpan time;
         
         private System.Threading.Timer onlineTimer;       
@@ -58,6 +52,7 @@ namespace MinecraftEmuPTS
         }
         void ConnectionManager_onClientDisconnect()
         {
+            listPlayersNear.Items.Clear();
             if (onlineTimer != null)
                 onlineTimer.Dispose();
             if (ReconnectFlag.Checked)
@@ -65,15 +60,16 @@ namespace MinecraftEmuPTS
                 if (connectTimer != null)
                     connectTimer.Dispose();
 
-                ConnectInfo inf;
-                username = textBox3.Text;
-                cManager.player.name = username;
-                inf.host = host.Text;
-                inf.port = port.Text;
+                ConnectInfo inf;              
+                inf.username = textUsername.Text;
+                inf.host = textHost.Text;
+                inf.port = textPort.Text;
                 inf.FMLserver = true;
+
                 BotSettings.Default.HostIP = inf.host;
                 BotSettings.Default.Port = inf.port;
-                BotSettings.Default.Username = username;
+                BotSettings.Default.Username = inf.username;
+
                 connectTimer = new System.Threading.Timer(ConnectionThread, inf, 3000, System.Threading.Timeout.Infinite);
 
             }
@@ -97,31 +93,33 @@ namespace MinecraftEmuPTS
             ModList.Init("MODLIST.txt");
             Packet.Init();
             CustomLib.form = this;
-            time = BotSettings.Default.timer;            
-            cManager.player.name = username;
+            time = BotSettings.Default.timer;
+
+            cManager = new ConnectionManager();
+            cManager.player.name = textUsername.Text;
 
             cManager.onClientDisconnect += ConnectionManager_onClientDisconnect;
             cManager.onClientConnect += Client_onClientConnect;
             cManager.onPlayerDeath += cManager_onPlayerDeath;            
 
-            console.MaxLength = Int32.MaxValue;
-            textBox3.Text = BotSettings.Default.Username;
-            host.Text = BotSettings.Default.HostIP;
-            port.Text = BotSettings.Default.Port;
+            textConsole.MaxLength = Int32.MaxValue;
+            textUsername.Text = BotSettings.Default.Username;
+            textHost.Text = BotSettings.Default.HostIP;
+            textPort.Text = BotSettings.Default.Port;
             time = BotSettings.Default.timer;
-            OnlineTimer.Text = BotSettings.Default.timer.ToString();
+            textOnlineTimer.Text = BotSettings.Default.timer.ToString();
         }              
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             if (cManager.Connected)
             {
-                richTextBox1.Text = cManager.player.ToString() + "\nHealth: " + (int)cManager.player.health + "\nHunger: " + (int)cManager.player.hunger;
-                PlayersNear.Items.Clear();
+                textPlayerInfo.Text = cManager.player.ToString() + "\nHealth: " + (int)cManager.player.health + "\nHunger: " + (int)cManager.player.hunger;
+                listPlayersNear.Items.Clear();
                 lock (cManager.PlayerList.Values)
                 {
                     foreach (EntityPlayer p in cManager.PlayerList.Values)
                     {
-                        PlayersNear.Items.Add(p);
+                        listPlayersNear.Items.Add(p);
                     }
                 }
             }
@@ -134,48 +132,36 @@ namespace MinecraftEmuPTS
             }
             else
             {
-                console.AppendText(line.text);
-                console.Select(console.Text.Length - line.text.Length, line.text.Length);
-                console.SelectionColor = line.color;
+                textConsole.AppendText(line.text);
+                textConsole.Select(textConsole.Text.Length - line.text.Length, line.text.Length);
+                textConsole.SelectionColor = line.color;
                 if (line.font == "italic")
-                    console.SelectionFont = new Font("Cambria", 12, FontStyle.Italic);
-                console.Select(console.Text.Length, console.Text.Length);
-                console.ScrollToCaret();                
+                    textConsole.SelectionFont = new Font("Cambria", 12, FontStyle.Italic);
+                textConsole.Select(textConsole.Text.Length, textConsole.Text.Length);
+                textConsole.ScrollToCaret();                
             }    
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            if (chat_message.Text.StartsWith("-"))
+            if (textMessage.Text.StartsWith("-"))
             {
-                String p = chat_message.Text.Substring(1);
-                if (p.IndexOf(' ') != -1)
+                String p = textMessage.Text.Substring(1);
+                if (p == "cls")
                 {
-                    String command = p.Substring(0, p.IndexOf(' '));
-                    String param = p.Substring(p.IndexOf(' ') + 1);
-
-                    cManager.Tasks.Enqueue(command);
-                    cManager.Tasks.Enqueue(param);
+                    textConsole.Clear();
                 }
                 else
                 {
-                    if (p == "cls")
-                    {
-                        console.Clear();
-                    }
-                    else
-                    {
-                        cManager.Tasks.Enqueue(p);
-                    }
+                    cManager.pControl.Command(p.Split(' '));
                 }
-                chat_message.Clear();
+                textMessage.Clear();
                 return;
 
             }
-            if (chat_message.Text != "")
+            if (textMessage.Text != "")
             {
-                cManager.Tasks.Enqueue("chat");
-                cManager.Tasks.Enqueue(chat_message.Text);
-                chat_message.Clear();
+                cManager.pControl.Command("chat", textMessage.Text);
+                textMessage.Clear();
             }
 
         }      
@@ -185,10 +171,10 @@ namespace MinecraftEmuPTS
             CustomLib.putsc("Pinging server..\n", Color.Aquamarine);
             try
             {
-                Client.Connect(IPAddress.Parse(host.Text), Convert.ToInt32(port.Text));
+                Client.Connect(IPAddress.Parse(textHost.Text), Convert.ToInt32(textPort.Text));
                 BinaryWriter bwr = new BinaryWriter(Client.GetStream());
                 BinaryReader br = new BinaryReader(Client.GetStream());
-                PacketServerPing packet = new PacketServerPing(78, host.Text, Convert.ToInt32(port.Text));                
+                PacketServerPing packet = new PacketServerPing(78, textHost.Text, Convert.ToInt32(textPort.Text));                
                 packet.Write(bwr);
                 PacketDisconnect packet2 = new PacketDisconnect();
                 if (br.ReadByte() != 255)
@@ -240,17 +226,7 @@ namespace MinecraftEmuPTS
         }
         private void AutofeedFlag_CheckedChanged(object sender, EventArgs e)
         {
-            AutoFeed = AutofeedFlag.Checked;
-            if (AutoFeed)
-            {
-                cManager.Tasks.Enqueue("feed");
-                cManager.Tasks.Enqueue("on");
-            }
-            else
-            {
-                cManager.Tasks.Enqueue("feed");
-                cManager.Tasks.Enqueue("off");
-            }
+            cManager.pControl.AutoFeed = AutofeedFlag.Checked;
         }
         private void TimerCallback(Object obj)
         {
@@ -261,7 +237,7 @@ namespace MinecraftEmuPTS
             else
             {
                 time = time.Add(new TimeSpan(0, 0, 1));
-                OnlineTimer.Text = time.ToString();
+                textOnlineTimer.Text = time.ToString();
                 BotSettings.Default.timer = time;
             }
         }
@@ -273,7 +249,8 @@ namespace MinecraftEmuPTS
         private void ConnectionThread(Object StateInfo)
         {           
             CustomLib.putsc("Connecting to server..\n", Color.Aquamarine);
-            cManager.Connect(((ConnectInfo)StateInfo).host, ((ConnectInfo)StateInfo).port, ((ConnectInfo)StateInfo).FMLserver);                      
+            ConnectInfo inf = (ConnectInfo)StateInfo;
+            cManager.Connect(inf.host,inf.port,inf.username,inf.FMLserver);                      
         }
         private void InitConnecting()
         {
@@ -284,16 +261,14 @@ namespace MinecraftEmuPTS
             }           
             ConnectInfo inf;
 
-            username = textBox3.Text;
-            cManager.player.name = username;
-
-            inf.host = host.Text;
-            inf.port = port.Text;
+            inf.username = textUsername.Text;
+            inf.host = textHost.Text;
+            inf.port = textPort.Text;
             inf.FMLserver = true;
 
             BotSettings.Default.HostIP = inf.host;
             BotSettings.Default.Port = inf.port;
-            BotSettings.Default.Username = username;
+            BotSettings.Default.Username = inf.username;
 
             if (connectTimer != null)
                 connectTimer.Dispose();
@@ -314,7 +289,7 @@ namespace MinecraftEmuPTS
         private void clearTime_Click(object sender, EventArgs e)
         {
             time = new TimeSpan();
-            OnlineTimer.Text = time.ToString();
+            textOnlineTimer.Text = time.ToString();
             BotSettings.Default.timer = time;
         }
 

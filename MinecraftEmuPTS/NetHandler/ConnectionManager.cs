@@ -20,9 +20,9 @@ namespace MinecraftEmuPTS
         private BinaryReader input;
         private BinaryWriter output;
        
-        public  EntityPlayer player;
-        public  Queue<String> Tasks;
+        public  EntityPlayer player;       
         public  Dictionary<int, EntityPlayer> PlayerList;
+        public String PlayerName;
 
         #region Events
         public  delegate void ClientDisconnectDelegate();
@@ -90,28 +90,25 @@ namespace MinecraftEmuPTS
             pControl = new PlayerControl(this);
             this.Connected = false;
             this.InGame = false;           
-
-            Tasks = new Queue<string>();
             PlayerList = new Dictionary<int, EntityPlayer>();
-
             player = new EntityPlayer();
-            player.name = MainWindow.username;
+            PlayerName = "";
 
             PacketWrite = new Queue<Packet>();
             PacketRead = new Queue<Packet>();
         }
 
-        public void Connect(String host, String port, bool FMLserver)
+        public void Connect(String host, String port, String username, bool FMLserver)
         {
             this.Connected = false;
             this.InGame = false;
             this.FML = FMLserver;
-
-            Tasks = new Queue<string>();
+            this.PlayerName = username;
+                       
             PlayerList= new Dictionary<int,EntityPlayer>();            
 
             player = new EntityPlayer();
-            player.name = MainWindow.username;
+            player.name = username;
 
             PacketWrite = new Queue<Packet>();
             PacketRead = new Queue<Packet>();
@@ -139,7 +136,7 @@ namespace MinecraftEmuPTS
                 threadin = new Timer(StartIn, this, 300, Timeout.Infinite);
                 threadupdate = new Timer(StartUpdate, this, 300, Timeout.Infinite);
 
-                AddToSendingQueue(new PacketHandshake(78, MainWindow.username, ServerIP.ToString(), ServerPort));
+                AddToSendingQueue(new PacketHandshake(78, this.PlayerName, ServerIP.ToString(), ServerPort));
                 Console.WriteLine("Sending handshake...");
                 MainLoop();
 
@@ -171,13 +168,13 @@ namespace MinecraftEmuPTS
 
         private void Dispose()
         {           
+            this.InGame = false;
+            this.Connected = false;
+
+            player = new EntityPlayer();
             PlayerList.Clear();
             PacketWrite.Clear();
             PacketRead.Clear();
-            player = new EntityPlayer();
-
-            this.InGame = false;
-            this.Connected = false;
 
             Thread.Sleep(100);
 
@@ -234,11 +231,28 @@ namespace MinecraftEmuPTS
         }    
         public void AddToSendingQueue(Packet packet)
         {
-            PacketWrite.Enqueue(packet);
+            try
+            {
+                PacketWrite.Enqueue(packet);
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Thread.Sleep(40);
+                this.AddToSendingQueue(packet);
+            }
+
         }
         public void PutPacket(Packet packet)
         {
-            PacketRead.Enqueue(packet);
+            try
+            {
+                PacketRead.Enqueue(packet);
+            }
+            catch (IndexOutOfRangeException ex)
+            {               
+                Thread.Sleep(40);
+                this.PutPacket(packet);
+            }
         }              
         private void MainLoop()
         {

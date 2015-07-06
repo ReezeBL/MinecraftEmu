@@ -1,0 +1,6 @@
+[10.01.2015 22:48:26.440] [System.Array.Copy()] Длина исходного массива недостаточна. Проверьте значения srcIndex и длины, а также нижние границы массива.
+   в System.Array.Copy(Array sourceArray, Int32 sourceIndex, Array destinationArray, Int32 destinationIndex, Int32 length, Boolean reliable)
+   в System.Collections.Generic.Queue`1.SetCapacity(Int32 capacity)
+   в System.Collections.Generic.Queue`1.Enqueue(T item)
+   в MinecraftEmuPTS.ConnectionManager.PutPacket(Packet packet) в c:\Users\Шилкин\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\NetHandler\ConnectionManager.cs:строка 249
+   в MinecraftEmuPTS.NetHandler.ReadThread.Run() в c:\Users\Шилкин\Documents\GitHub\MinecraftEmu\MinecraftEmuPTS\NetHandler\ReadThread.cs:строка 30

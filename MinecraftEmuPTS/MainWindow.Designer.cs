@@ -30,23 +30,22 @@
         {
             this.components = new System.ComponentModel.Container();
             this.connect = new System.Windows.Forms.Button();
-            this.host = new System.Windows.Forms.TextBox();
-            this.port = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textHost = new System.Windows.Forms.TextBox();
+            this.textPort = new System.Windows.Forms.TextBox();
+            this.textUsername = new System.Windows.Forms.TextBox();
             this.UpdateTick = new System.Windows.Forms.Timer(this.components);
-            this.console = new System.Windows.Forms.RichTextBox();
-            this.chat_message = new System.Windows.Forms.TextBox();
+            this.textConsole = new System.Windows.Forms.RichTextBox();
+            this.textMessage = new System.Windows.Forms.TextBox();
             this.chat_send = new System.Windows.Forms.Button();
-            this.PlayersNear = new System.Windows.Forms.ListBox();
+            this.listPlayersNear = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.textPlayerInfo = new System.Windows.Forms.RichTextBox();
             this.ReconnectFlag = new System.Windows.Forms.CheckBox();
             this.Ping = new System.Windows.Forms.Button();
             this.AntiafkFlag = new System.Windows.Forms.CheckBox();
             this.AutofeedFlag = new System.Windows.Forms.CheckBox();
-            this.OnlineTimer = new System.Windows.Forms.TextBox();
+            this.textOnlineTimer = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.timer_online = new System.Windows.Forms.Timer(this.components);
             this.disableChat = new System.Windows.Forms.CheckBox();
             this.clearTime = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -61,29 +60,29 @@
             this.connect.UseVisualStyleBackColor = true;
             this.connect.Click += new System.EventHandler(this.button1_Click);
             // 
-            // host
+            // textHost
             // 
-            this.host.Location = new System.Drawing.Point(30, 81);
-            this.host.Name = "host";
-            this.host.Size = new System.Drawing.Size(132, 20);
-            this.host.TabIndex = 3;
-            this.host.Text = "5.196.77.107";
+            this.textHost.Location = new System.Drawing.Point(30, 81);
+            this.textHost.Name = "textHost";
+            this.textHost.Size = new System.Drawing.Size(132, 20);
+            this.textHost.TabIndex = 3;
+            this.textHost.Text = "5.196.77.107";
             // 
-            // port
+            // textPort
             // 
-            this.port.Location = new System.Drawing.Point(206, 80);
-            this.port.Name = "port";
-            this.port.Size = new System.Drawing.Size(121, 20);
-            this.port.TabIndex = 4;
-            this.port.Text = "24444";
+            this.textPort.Location = new System.Drawing.Point(206, 80);
+            this.textPort.Name = "textPort";
+            this.textPort.Size = new System.Drawing.Size(121, 20);
+            this.textPort.TabIndex = 4;
+            this.textPort.Text = "24444";
             // 
-            // textBox3
+            // textUsername
             // 
-            this.textBox3.Location = new System.Drawing.Point(30, 20);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(132, 20);
-            this.textBox3.TabIndex = 5;
-            this.textBox3.Text = "NoliMultiply";
+            this.textUsername.Location = new System.Drawing.Point(30, 20);
+            this.textUsername.Name = "textUsername";
+            this.textUsername.Size = new System.Drawing.Size(132, 20);
+            this.textUsername.TabIndex = 5;
+            this.textUsername.Text = "NoliMultiply";
             // 
             // UpdateTick
             // 
@@ -91,25 +90,25 @@
             this.UpdateTick.Interval = 500;
             this.UpdateTick.Tick += new System.EventHandler(this.UpdateTimer_Tick);
             // 
-            // console
+            // textConsole
             // 
-            this.console.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.console.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.console.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.console.Location = new System.Drawing.Point(30, 106);
-            this.console.Name = "console";
-            this.console.ReadOnly = true;
-            this.console.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.console.Size = new System.Drawing.Size(529, 227);
-            this.console.TabIndex = 0;
-            this.console.Text = "";
+            this.textConsole.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textConsole.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textConsole.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textConsole.Location = new System.Drawing.Point(30, 106);
+            this.textConsole.Name = "textConsole";
+            this.textConsole.ReadOnly = true;
+            this.textConsole.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.textConsole.Size = new System.Drawing.Size(529, 227);
+            this.textConsole.TabIndex = 0;
+            this.textConsole.Text = "";
             // 
-            // chat_message
+            // textMessage
             // 
-            this.chat_message.Location = new System.Drawing.Point(29, 339);
-            this.chat_message.Name = "chat_message";
-            this.chat_message.Size = new System.Drawing.Size(422, 20);
-            this.chat_message.TabIndex = 7;
+            this.textMessage.Location = new System.Drawing.Point(29, 339);
+            this.textMessage.Name = "textMessage";
+            this.textMessage.Size = new System.Drawing.Size(422, 20);
+            this.textMessage.TabIndex = 7;
             // 
             // chat_send
             // 
@@ -121,13 +120,13 @@
             this.chat_send.UseVisualStyleBackColor = true;
             this.chat_send.Click += new System.EventHandler(this.button3_Click);
             // 
-            // PlayersNear
+            // listPlayersNear
             // 
-            this.PlayersNear.FormattingEnabled = true;
-            this.PlayersNear.Location = new System.Drawing.Point(583, 105);
-            this.PlayersNear.Name = "PlayersNear";
-            this.PlayersNear.Size = new System.Drawing.Size(195, 160);
-            this.PlayersNear.TabIndex = 9;
+            this.listPlayersNear.FormattingEnabled = true;
+            this.listPlayersNear.Location = new System.Drawing.Point(583, 105);
+            this.listPlayersNear.Name = "listPlayersNear";
+            this.listPlayersNear.Size = new System.Drawing.Size(195, 160);
+            this.listPlayersNear.TabIndex = 9;
             // 
             // label1
             // 
@@ -138,13 +137,13 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Players Nearby:";
             // 
-            // richTextBox1
+            // textPlayerInfo
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(587, 21);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(190, 53);
-            this.richTextBox1.TabIndex = 11;
-            this.richTextBox1.Text = "";
+            this.textPlayerInfo.Location = new System.Drawing.Point(587, 21);
+            this.textPlayerInfo.Name = "textPlayerInfo";
+            this.textPlayerInfo.Size = new System.Drawing.Size(190, 53);
+            this.textPlayerInfo.TabIndex = 11;
+            this.textPlayerInfo.Text = "";
             // 
             // ReconnectFlag
             // 
@@ -189,13 +188,13 @@
             this.AutofeedFlag.UseVisualStyleBackColor = true;
             this.AutofeedFlag.CheckedChanged += new System.EventHandler(this.AutofeedFlag_CheckedChanged);
             // 
-            // OnlineTimer
+            // textOnlineTimer
             // 
-            this.OnlineTimer.Location = new System.Drawing.Point(583, 294);
-            this.OnlineTimer.Name = "OnlineTimer";
-            this.OnlineTimer.ReadOnly = true;
-            this.OnlineTimer.Size = new System.Drawing.Size(100, 20);
-            this.OnlineTimer.TabIndex = 17;
+            this.textOnlineTimer.Location = new System.Drawing.Point(583, 294);
+            this.textOnlineTimer.Name = "textOnlineTimer";
+            this.textOnlineTimer.ReadOnly = true;
+            this.textOnlineTimer.Size = new System.Drawing.Size(100, 20);
+            this.textOnlineTimer.TabIndex = 17;
             // 
             // label2
             // 
@@ -205,10 +204,6 @@
             this.label2.Size = new System.Drawing.Size(65, 13);
             this.label2.TabIndex = 18;
             this.label2.Text = "Online timer:";
-            // 
-            // timer_online
-            // 
-            this.timer_online.Interval = 1000;
             // 
             // disableChat
             // 
@@ -240,20 +235,20 @@
             this.Controls.Add(this.clearTime);
             this.Controls.Add(this.disableChat);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.OnlineTimer);
+            this.Controls.Add(this.textOnlineTimer);
             this.Controls.Add(this.AutofeedFlag);
             this.Controls.Add(this.AntiafkFlag);
             this.Controls.Add(this.Ping);
             this.Controls.Add(this.ReconnectFlag);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.textPlayerInfo);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.PlayersNear);
+            this.Controls.Add(this.listPlayersNear);
             this.Controls.Add(this.chat_send);
-            this.Controls.Add(this.chat_message);
-            this.Controls.Add(this.console);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.port);
-            this.Controls.Add(this.host);
+            this.Controls.Add(this.textMessage);
+            this.Controls.Add(this.textConsole);
+            this.Controls.Add(this.textUsername);
+            this.Controls.Add(this.textPort);
+            this.Controls.Add(this.textHost);
             this.Controls.Add(this.connect);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "MainWindow";
@@ -268,23 +263,22 @@
         #endregion
 
         private System.Windows.Forms.Button connect;
-        private System.Windows.Forms.TextBox host;
-        private System.Windows.Forms.TextBox port;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textHost;
+        private System.Windows.Forms.TextBox textPort;
+        private System.Windows.Forms.TextBox textUsername;
         private System.Windows.Forms.Timer UpdateTick;
-        private System.Windows.Forms.RichTextBox console;
-        private System.Windows.Forms.TextBox chat_message;
+        private System.Windows.Forms.RichTextBox textConsole;
+        private System.Windows.Forms.TextBox textMessage;
         private System.Windows.Forms.Button chat_send;
-        private System.Windows.Forms.ListBox PlayersNear;
+        private System.Windows.Forms.ListBox listPlayersNear;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox textPlayerInfo;
         private System.Windows.Forms.CheckBox ReconnectFlag;
         private System.Windows.Forms.Button Ping;
         private System.Windows.Forms.CheckBox AntiafkFlag;
         private System.Windows.Forms.CheckBox AutofeedFlag;
-        private System.Windows.Forms.TextBox OnlineTimer;
+        private System.Windows.Forms.TextBox textOnlineTimer;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Timer timer_online;
         private System.Windows.Forms.CheckBox disableChat;
         private System.Windows.Forms.Button clearTime;
     }

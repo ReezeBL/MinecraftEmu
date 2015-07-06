@@ -227,6 +227,7 @@ namespace MinecraftEmuPTS
             PacketMap.Add(39, typeof(PacketAttachEntity));
             PacketMap.Add(40, typeof(PacketEntityMetadata));
             PacketMap.Add(41, typeof(PacketEntityEffect));
+            PacketMap.Add(42, typeof(PacketRemoveEntityEffect));
             PacketMap.Add(43, typeof(PacketExperience));
             PacketMap.Add(44, typeof(PacketUpdateAttributes));
             PacketMap.Add(51, typeof(PacketMapChunk));
